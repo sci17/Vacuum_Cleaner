@@ -1,0 +1,14 @@
+C:\Users\ACER\Desktop\Vacuum_Cleaner\VacuumCleanerApp\bin\Debug\net7.0\VacuumCleanerApp.exe
+C:\Users\ACER\Desktop\Vacuum_Cleaner\VacuumCleanerApp\bin\Debug\net7.0\VacuumCleanerApp.deps.json
+C:\Users\ACER\Desktop\Vacuum_Cleaner\VacuumCleanerApp\bin\Debug\net7.0\VacuumCleanerApp.runtimeconfig.json
+C:\Users\ACER\Desktop\Vacuum_Cleaner\VacuumCleanerApp\bin\Debug\net7.0\VacuumCleanerApp.dll
+C:\Users\ACER\Desktop\Vacuum_Cleaner\VacuumCleanerApp\bin\Debug\net7.0\VacuumCleanerApp.pdb
+C:\Users\ACER\Desktop\Vacuum_Cleaner\VacuumCleanerApp\obj\Debug\net7.0\VacuumCleanerApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ACER\Desktop\Vacuum_Cleaner\VacuumCleanerApp\obj\Debug\net7.0\VacuumCleanerApp.AssemblyInfoInputs.cache
+C:\Users\ACER\Desktop\Vacuum_Cleaner\VacuumCleanerApp\obj\Debug\net7.0\VacuumCleanerApp.AssemblyInfo.cs
+C:\Users\ACER\Desktop\Vacuum_Cleaner\VacuumCleanerApp\obj\Debug\net7.0\VacuumCleanerApp.csproj.CoreCompileInputs.cache
+C:\Users\ACER\Desktop\Vacuum_Cleaner\VacuumCleanerApp\obj\Debug\net7.0\VacuumCleanerApp.dll
+C:\Users\ACER\Desktop\Vacuum_Cleaner\VacuumCleanerApp\obj\Debug\net7.0\refint\VacuumCleanerApp.dll
+C:\Users\ACER\Desktop\Vacuum_Cleaner\VacuumCleanerApp\obj\Debug\net7.0\VacuumCleanerApp.pdb
+C:\Users\ACER\Desktop\Vacuum_Cleaner\VacuumCleanerApp\obj\Debug\net7.0\VacuumCleanerApp.genruntimeconfig.cache
+C:\Users\ACER\Desktop\Vacuum_Cleaner\VacuumCleanerApp\obj\Debug\net7.0\ref\VacuumCleanerApp.dll
