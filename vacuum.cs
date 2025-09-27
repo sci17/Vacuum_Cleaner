@@ -47,4 +47,43 @@ public class RandomPathStrategy : ICleaningStrategy
         }
     }
 }
+public class Robot
+{
+    private ICleaningStrategy cleaningStrategy;
+    public string Name { get; set; }
 
+    public Robot(string name)
+    {
+        Name = name;
+    }
+    public void SetStrategy(ICleaningStrategy strategy)
+    {
+        cleaningStrategy = strategy;
+    }
+
+    public void StartCleaning(Map map)
+    {
+        if (cleaningStrategy == null)
+        {
+            Console.WriteLine("No Cleaning strategy set!");
+            return;
+        }
+        cleaningStrategy.Clean(this, map);
+    }
+    public void CleanTitle(int row, int col)
+    {
+        Console.WriteLine($"{Name} cleaned tile at ({row}, {col})");
+    }
+}
+
+public class Map
+{
+    public int Rows { get; }
+    public int Cols { get; }
+
+    public Map(int rows, int cols)
+    {
+        Rows = rows;
+        Cols = cols;
+    }
+} 
