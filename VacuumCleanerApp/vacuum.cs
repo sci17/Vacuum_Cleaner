@@ -79,9 +79,9 @@ public class Robot
     }
 }
 
-// Map class
 public class Map
 {
+    private bool[,] dirtyTiles;
     public int Rows { get; }
     public int Cols { get; }
 
@@ -89,6 +89,30 @@ public class Map
     {
         Rows = rows;
         Cols = cols;
+        dirtyTiles = new bool[rows, cols];
+
+        Random random = new Random();
+        for (int r = 0; r < rows; r++)
+        {
+            for (int c = 0; c < cols; c++)
+            {
+                dirtyTiles[r, c] = random.Next(2) == 1;
+            }
+        }
+    }
+    public bool IsDirty(int row, int col) => dirtyTiles[row, col];
+
+    public void CleanTile(int row, int col)
+    {
+        dirtyTiles[Rows, col] = false;
+    }
+    public bool HasDirtyTiles()
+    {
+        foreach (bool dirty in dirtyTiles)
+        {
+            if (dirty) return true;
+        }
+        return false;
     }
 }
 
