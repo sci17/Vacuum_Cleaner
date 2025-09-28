@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 
 public interface ICleaningStrategy
 {
@@ -96,6 +97,8 @@ public class Robot
 
     public void CleanTile(int row, int col, Map map)
     {
+        map.Display(row, col);
+
         if (map.IsDirty(row, col))
         {
             Console.WriteLine($"{Name} cleaned tile at ({row}, {col})");
@@ -105,6 +108,7 @@ public class Robot
         {
             Console.WriteLine($"{Name} moved to ({row}, {col}) - already clean.");
         }
+        Thread.Sleep(400);
     }
 }
 
@@ -144,11 +148,11 @@ public class Map
             for (int c = 0; c < Cols; c++)
             {
                 if (r == robotRow && c == robotCol)
-                    Console.Write(" Robot ");
+                    Console.Write(" R ");
                 else if (dirtyTiles[r, c])
-                    Console.Write(" Dirty ");
+                    Console.Write(" X ");
                 else
-                    Console.Write(" Clean ");
+                    Console.Write(" . ");
             }
             Console.WriteLine();
         }
@@ -174,12 +178,15 @@ public class Program
         vacuum.SetStrategy(new SPatternStrategy());
         vacuum.StartCleaning(roomMap);
 
-        Console.WriteLine();
+        Console.WriteLine("S-Pattern done. Press any key for Random Strategy. ");
+        Console.ReadKey();
+
 
         vacuum.SetStrategy(new RandomPathStrategy());
         vacuum.StartCleaning(roomMap);
 
-        Console.WriteLine();
+        Console.WriteLine("Random Strategy done, Press any key for Intelligent Strategy.");
+        Console.ReadKey();
 
         vacuum.SetStrategy(new IntelligentStrategy());
         vacuum.StartCleaning(roomMap);
