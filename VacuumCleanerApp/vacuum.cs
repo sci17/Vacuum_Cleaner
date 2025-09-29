@@ -108,7 +108,7 @@ public class Robot
         {
             Console.WriteLine($"{Name} moved to ({row}, {col}) - already clean.");
         }
-        Thread.Sleep(400);
+        Thread.Sleep(500);
     }
 }
 
@@ -172,7 +172,7 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        Map roomMap = new Map(3, 4);
+        Map roomMap = new Map(5, 5);
         Robot vacuum = new Robot("Robot Vacuum");
 
         vacuum.SetStrategy(new SPatternStrategy());
