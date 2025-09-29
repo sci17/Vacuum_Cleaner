@@ -48,28 +48,28 @@ public class RandomPathStrategy : ICleaningStrategy
         }
     }
 }
-public class IntelligentStrategy : ICleaningStrategy
-{
-    public void Clean(Robot robot, Map map)
-    {
-        Console.WriteLine("Cleaning with Intelligent Strategy");
+// public class IntelligentStrategy : ICleaningStrategy
+// {
+//     public void Clean(Robot robot, Map map)
+//     {
+//         Console.WriteLine("Cleaning with Intelligent Strategy");
 
-        while (map.HasDirtyTiles())
-        {
-            for (int row = 0; row < map.Rows; row++)
-            {
-                for (int col = 0; col < map.Cols; col++)
-                {
-                    if (map.IsDirty(row, col))
-                    {
-                        robot.CleanTile(row, col,map);
-                    }
-                }
-            }
-        }
-        Console.WriteLine("All dirty tiles have been cleaned intelligently!");
-    }
-}
+//         while (map.HasDirtyTiles())
+//         {
+//             for (int row = 0; row < map.Rows; row++)
+//             {
+//                 for (int col = 0; col < map.Cols; col++)
+//                 {
+//                     if (map.IsDirty(row, col))
+//                     {
+//                         robot.CleanTile(row, col,map);
+//                     }
+//                 }
+//             }
+//         }
+//         Console.WriteLine("All dirty tiles have been cleaned intelligently!");
+//     }
+// }
 public class Robot
 {
     private ICleaningStrategy? cleaningStrategy;
@@ -97,24 +97,30 @@ public class Robot
 
     public void CleanTile(int row, int col, Map map)
     {
+        if (map.IsObstacle(row, col))
+        {
+            Console.WriteLine();
+            return;
+        }
         map.Display(row, col);
 
         if (map.IsDirty(row, col))
         {
-            Console.WriteLine($"{Name} cleaned tile at ({row}, {col})");
+            Console.WriteLine();
             map.CleanTile(row, col);
         }
         else
         {
-            Console.WriteLine($"{Name} moved to ({row}, {col}) - already clean.");
+            Console.WriteLine();
         }
-        Thread.Sleep(500);
+        Thread.Sleep(400);
     }
 }
 
 public class Map
 {
     private bool[,] dirtyTiles;
+    private bool[,] obstacles;
     public int Rows { get; }
     public int Cols { get; }
 
@@ -123,6 +129,7 @@ public class Map
         Rows = rows;
         Cols = cols;
         dirtyTiles = new bool[rows, cols];
+        obstacles = new bool[rows, cols];
 
         Random random = new Random();
         for (int r = 0; r < rows; r++)
@@ -130,14 +137,17 @@ public class Map
             for (int c = 0; c < cols; c++)
             {
                 dirtyTiles[r, c] = random.Next(2) == 1;
+                obstacles[r, c] = random.Next(10) == 0;
             }
         }
     }
-    public bool IsDirty(int row, int col) => dirtyTiles[row, col];
+    public bool IsDirty(int row, int col) => IsValid(row, col) && dirtyTiles[row, col];
+    public bool IsObstacle(int row, int col) => IsValid(row, col) && obstacles[row, col];
 
     public void CleanTile(int row, int col)
     {
-        dirtyTiles[row, col] = false;
+        if (IsValid(row, col))
+            dirtyTiles[row, col] = false;
     }
 
     public void Display(int robotRow, int robotCol)
@@ -151,21 +161,31 @@ public class Map
                     Console.Write(" R ");
                 else if (dirtyTiles[r, c])
                     Console.Write(" X ");
+                else if (obstacles[r, c])
+                    Console.Write(" # ");
                 else
                     Console.Write(" . ");
+
             }
             Console.WriteLine();
         }
         Console.WriteLine();
     }
-        public bool HasDirtyTiles()
+    public bool HasDirtyTiles()
     {
-        foreach (bool dirty in dirtyTiles)
+        for (int r = 0; r < Rows; r++)
         {
-            if (dirty) return true;
+            for (int c = 0; c < Cols; c++)
+            {
+                if (dirtyTiles[r, c] && !obstacles[r, c])
+                {
+                    return true;
+                }
+            }
         }
         return false;
     }
+    private bool IsValid(int row, int col) => row >= 0 && row < Rows && col < Cols;
 }
 
 public class Program
@@ -177,19 +197,13 @@ public class Program
 
         vacuum.SetStrategy(new SPatternStrategy());
         vacuum.StartCleaning(roomMap);
-
-        Console.WriteLine("S-Pattern done. Press any key for Random Strategy. ");
+        Console.WriteLine("S-Pattern Done. Press any key for Random Strategy.");
         Console.ReadKey();
-
 
         vacuum.SetStrategy(new RandomPathStrategy());
         vacuum.StartCleaning(roomMap);
-
-        Console.WriteLine("Random Strategy done, Press any key for Intelligent Strategy.");
+        Console.WriteLine("Random Strategy done.");
         Console.ReadKey();
-
-        vacuum.SetStrategy(new IntelligentStrategy());
-        vacuum.StartCleaning(roomMap);
 
         Console.WriteLine("\nCleaning demonstration completed.");
     }
